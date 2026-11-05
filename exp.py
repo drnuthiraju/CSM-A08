@@ -126,7 +126,7 @@ def main(args):
         process_args.granularity = "file"
         process_args.only_find_file_list = args.only_find_file_list
         process_args.bm_top_k = args.bm_top_k
-        process_args.model_name = args.model_name #"gpt-4-0613" #"gpt-3.5-turbo-0125" #"gpt-4-0613"
+        process_args.model_name = args.model_name
         process_args.cache = True
         process_args.hints_text = args.hints_text
         logger.info(process_args)
@@ -169,7 +169,7 @@ if __name__ == "__main__":
     parser.add_argument("--swe_bench_tasks", type=str, help="Path to SWE-bench task instances file", 
                         default="exp/SWE-bench/assets/swe-bench.json")
     parser.add_argument("--idx_list_file_path", type=str, default="exp/SWE-bench/gpt_4_selected_idx_short_patch.json")
-    parser.add_argument("--model_name", default="gpt-4-0613", help="Default model name")
+    parser.add_argument("--model_name", default=config.GEMINI_MODEL, help="Default model name")
     parser.add_argument("--max_num_for_test", type=int, default=None)
     parser.add_argument("--start_idx", type=int, default=None)
     parser.add_argument("--end_idx", type=int, default=100)

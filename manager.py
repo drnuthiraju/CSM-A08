@@ -1,7 +1,7 @@
 import os, pickle, shutil
 
 from operate import get_file_content, get_git_tracked_file_path_list, is_code_or_text
-from chat_with_LLM import chat
+from chat_with_LLM import chat, LLMRequestError
 from log import log
 from common import get_name, merge_multiple_items
 from member import Member
@@ -414,6 +414,8 @@ class Manager:
         except Exception as e:
             logger.error("1st Try, Implement error:")
             logger.error(e)
+            if isinstance(e, LLMRequestError):
+                raise
             try:
                 db_manager.add_action(self.task_index, "Team Work Restarted ...")
                 for each in self.team_member_list:
@@ -422,6 +424,8 @@ class Manager:
                 logger.error("Finally, Implement error:")
                 logger.error(e)
                 db_manager.add_action(self.task_index, "Failed to Implement the Python Script for Team Work ...")
+                if isinstance(e, LLMRequestError):
+                    raise
 
     def merge_code_change(self):
         patch = ""

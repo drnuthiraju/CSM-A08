@@ -1,8 +1,9 @@
 import json
 import os
+import shutil
 
 from operate import *
-from chat_with_LLM import chat
+from chat_with_LLM import chat, LLMRequestError
 from log import *
 from common import *
 import config
@@ -79,13 +80,11 @@ class Member:
     def update_folder(self):
         logger.info(f"Update Member folder: {self.user_path}")
         self.manager_repo_path = os.path.join(config.virtual_env_path, "manager", self.project_name)
-        if os.path.exists(self.manager_repo_path):
-            git_clone_bash = f"cp -r {self.manager_repo_path} {self.user_path}/"
-        else:
-            git_clone_bash = f"git clone git@github.com:itaowei/{self.project_name}.git"
-        logger.info(git_clone_bash)
         if not os.path.exists(self.project_path):
-            self.operator_linux_env.bash(git_clone_bash)
+            if os.path.exists(self.manager_repo_path):
+                shutil.copytree(self.manager_repo_path, self.project_path, dirs_exist_ok=True)
+            else:
+                self.operator_linux_env.bash(f"git clone git@github.com:itaowei/{self.project_name}.git")
             self.operator_gitconfig.gen_config_file(self.project_path)
         else:
             logger.info(f"Project folder {self.project_path} already exists.")
@@ -263,7 +262,10 @@ class Member:
                         f.write(new_version_file_content)
                     self.operator_linux_env.bash(f"git add {self.file_path}", self.project_path)
 
-            except:
+            except LLMRequestError:
+                self.db_manager.add_action(self.task_index, f"{self.name} failed to change the code of {self.file_path}")
+                raise
+            except Exception:
                 self.db_manager.add_action(self.task_index, f"{self.name} failed to change the code of {self.file_path}")
                 logger.error("Nothing changed.")
 

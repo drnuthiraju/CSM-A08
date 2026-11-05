@@ -1,12 +1,64 @@
 import json
+import os
 import sqlite3
 
 import config
 
 class DatabaseManager:
     def __init__(self, db_path=config.db_path):
+        os.makedirs(os.path.dirname(os.path.abspath(db_path)), exist_ok=True)
         self.conn = sqlite3.connect(db_path)
         self.cursor = self.conn.cursor()
+        self.cursor.executescript("""
+            CREATE TABLE IF NOT EXISTS repository (
+                repo_index INTEGER PRIMARY KEY AUTOINCREMENT,
+                full_name TEXT,
+                path TEXT
+            );
+            CREATE TABLE IF NOT EXISTS task (
+                task_index INTEGER PRIMARY KEY AUTOINCREMENT,
+                description TEXT,
+                task_type INTEGER,
+                repo_index INTEGER,
+                path TEXT,
+                version INTEGER
+            );
+            CREATE TABLE IF NOT EXISTS agent_role (
+                role_index INTEGER PRIMARY KEY AUTOINCREMENT,
+                system_prompt TEXT,
+                task_index INTEGER,
+                name TEXT,
+                username TEXT,
+                user_path TEXT
+            );
+            CREATE TABLE IF NOT EXISTS chat_request (
+                request_index INTEGER PRIMARY KEY AUTOINCREMENT,
+                role_index INTEGER,
+                user_prompt TEXT
+            );
+            CREATE TABLE IF NOT EXISTS chat_response (
+                response_index INTEGER PRIMARY KEY AUTOINCREMENT,
+                response_id TEXT,
+                object TEXT,
+                created INTEGER,
+                model TEXT,
+                choices TEXT,
+                usage TEXT,
+                system_fingerprint TEXT,
+                request_index INTEGER
+            );
+            CREATE TABLE IF NOT EXISTS action (
+                action_index INTEGER PRIMARY KEY AUTOINCREMENT,
+                action_content TEXT
+            );
+            CREATE TABLE IF NOT EXISTS process (
+                process_index INTEGER PRIMARY KEY AUTOINCREMENT,
+                process_type INTEGER,
+                operate_index INTEGER,
+                task_index INTEGER
+            );
+        """)
+        self.conn.commit()
 
     def insert_data(self, query, data):
         self.cursor.execute(query, data)

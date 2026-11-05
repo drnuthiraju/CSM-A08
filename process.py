@@ -105,6 +105,7 @@ def main(args):
         logger.error("Main program error:")
         logger.error(e)
         logger.error(traceback.format_exc())
+        raise
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -113,9 +114,11 @@ if __name__ == "__main__":
     parser.add_argument("--candidate_file_path_list", type=list, default=None, help="Path to candidate file path list")
     parser.add_argument("--version", type=int, default=231219, help="Version of the project")
     parser.add_argument("--granularity", type=str, default="file", help="Granularity of the processing")
-    parser.add_argument("--only_find_file_list", type=bool, default=False, help="Only find file list")
+    parser.add_argument("--only_find_file_list", nargs="?", const=True, default=False,
+                        type=lambda value: str(value).lower() in ("1", "true", "yes", "on"),
+                        help="Only find file list")
     parser.add_argument("--bm_top_k", type=int, default=20, help="Top k for BM25")
-    parser.add_argument("--model_name", default="gpt-4-0613", help="Default model name")
+    parser.add_argument("--model_name", default=config.GEMINI_MODEL, help="Default model name")
     parser.add_argument("--hints_text", action="store_true", help="(Optional) Use hints_text with issue description") # TODO
     args = parser.parse_args()
     main(args)

@@ -60,5 +60,5 @@ You can now open the webpage to view the visualization, as shown below:
 Run `exp.py`, for example,
 
 ```bash
-python exp.py --model_name gpt-4-0613 --end_idx 10 --version 240201
+python exp.py --end_idx 10 --version 240201
 ```

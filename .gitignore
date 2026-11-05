@@ -1,5 +1,28 @@
-__pycache__
-sqlite_db
+﻿# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
 
-*.jsonl
+# Database
+sqlite_db/
+*.db
+*.sqlite
+*.sqlite3
+
+# Logs
+log/
+*.log
+
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Generated experiment files
 *.json
+*.jsonl
+exp/SWE-bench/magis_*/
+exp/SWE-bench/manual_*/
+exp/SWE-bench/team_demo_*/
+

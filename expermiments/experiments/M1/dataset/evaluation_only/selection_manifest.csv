@@ -1,0 +1,16 @@
+instance_id,repo,issue_words,fail_test_count,pass_test_count,version,files_changed,lines_added,lines_deleted,patch_size,modified_files
+django__django-10914,django/django,151,1,98,3.0,1,1,1,12,django/conf/global_settings.py
+django__django-12308,django/django,69,2,20,3.1,1,5,0,15,django/contrib/admin/utils.py
+django__django-12915,django/django,89,3,8,3.2,1,8,0,25,django/contrib/staticfiles/handlers.py
+pytest-dev__pytest-5227,pytest-dev/pytest,120,3,34,4.4,1,1,1,12,src/_pytest/logging.py
+pytest-dev__pytest-5413,pytest-dev/pytest,259,1,92,4.6,1,0,7,17,src/_pytest/_code/code.py
+pytest-dev__pytest-6116,pytest-dev/pytest,184,2,69,5.2,1,1,0,11,src/_pytest/main.py
+scikit-learn__scikit-learn-11040,scikit-learn/scikit-learn,86,1,44,0.20,1,17,0,34,sklearn/neighbors/base.py
+scikit-learn__scikit-learn-13241,scikit-learn/scikit-learn,99,1,54,0.21,1,5,0,22,sklearn/decomposition/kernel_pca.py
+scikit-learn__scikit-learn-14894,scikit-learn/scikit-learn,189,1,85,0.22,1,8,5,23,sklearn/svm/base.py
+sphinx-doc__sphinx-7975,sphinx-doc/sphinx,85,1,7,3.2,1,9,5,34,sphinx/environment/adapters/indexentries.py
+sphinx-doc__sphinx-8713,sphinx-doc/sphinx,193,1,45,4.0,1,7,1,18,sphinx/ext/napoleon/docstring.py
+sphinx-doc__sphinx-8721,sphinx-doc/sphinx,78,1,3,3.5,1,4,0,14,sphinx/ext/viewcode.py
+sympy__sympy-16106,sympy/sympy,178,1,55,1.4,1,20,0,30,sympy/printing/mathml.py
+sympy__sympy-19007,sympy/sympy,82,3,26,1.6,1,13,5,41,sympy/matrices/expressions/blockmatrix.py
+sympy__sympy-23117,sympy/sympy,119,1,3,1.11,1,10,5,43,sympy/tensor/array/ndim_array.py
